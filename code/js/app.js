@@ -1,9 +1,14 @@
-// Variables
+// ---- Calculate the basic price of insurance for each car ----
+function basePriceCalculation(){
+    // document.getElementsByClassName("praid").addEventListener('click', (evt) => {
+    //     console.log("mmdi");
+    // });
 
-
-
-// Events
-
+   
+    function mmdi(){
+        console.log("mmdi");
+    }
+}
 
 
 // Functions
