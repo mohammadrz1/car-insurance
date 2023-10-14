@@ -22,7 +22,6 @@ function fixNumbers(str = "") {
 // Functions
 function afterLoad() {
     domDefaltYears()
-    displayMsg()
     removeErorrDisplayMaseg()
     domDefaltYears()
     persinNumber()
@@ -133,6 +132,8 @@ function displayMsg(msg) {
 
     // show message
     form.insertBefore(messageBox, document.querySelector('.form-group'))
+
+    
 }
 
 // remove erorr maseg after 5s
