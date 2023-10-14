@@ -50,6 +50,17 @@ function submitForm(e) {
     }
 }
 
+const diffrence = function (year) {
+    // Convert to number
+    // get max year
+    const now = new Date().toLocaleDateString('fa-IR')
+    let nowYear = now.slice(0, 4)
+    let max = fixNumbers(nowYear)
+    year = max - year
+
+    return year
+}
+
 function calculatePrice(info) {
     let price = 0, base = 2000000
 
@@ -78,16 +89,7 @@ function calculatePrice(info) {
     // get the year
     const year = info.year
     // diffrence = getYearDiffrence(year)
-    const diffrence = function (year) {
-        // Convert to number
-        // get max year
-        const now = new Date().toLocaleDateString('fa-IR')
-        let nowYear = now.slice(0, 4)
-        let max = fixNumbers(nowYear)
-        year = max - year
 
-        return year
-    }
     // 3% cheaper for each year
     price = price - ((diffrence(year) * 3) / 100) * price
 
@@ -133,7 +135,7 @@ function displayMsg(msg) {
     }, 5000)
 }
 
-// Show Years
+// Show Years 
 function displayYears() {
 
 
@@ -171,6 +173,3 @@ function displayYears() {
         selectYear.appendChild(optionTag)
     }
 }
-
-
-
