@@ -6,24 +6,29 @@ const form = document.querySelector('#request-quote')
 document.addEventListener('DOMContentLoaded', afterLoad)
 document.addEventListener('submit', submitForm)
 
-    // Convert to number
+// Convert to number
 
- fixNumbers = function (str = "") {
+function fixNumbers(str = "") {
     let
         arabicNumbers = [/٠/g, /١/g, /٢/g, /٣/g, /٤/g, /٥/g, /٦/g, /٧/g, /٨/g, /٩/g],
         persianNumbers = [/۰/g, /۱/g, /۲/g, /۳/g, /۴/g, /۵/g, /۶/g, /۷/g, /۸/g, /۹/g]
-            if (typeof str === 'string') {
-                for (var i = 0; i < 10; i++) {
-                    str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
-                }
-            }
-            return parseInt(str);
- };
+    if (typeof str === 'string') {
+        for (var i = 0; i < 10; i++) {
+            str = str.replace(persianNumbers[i], i).replace(arabicNumbers[i], i);
+        }
+    }
+    return parseInt(str);
+};
 // Functions
 function afterLoad() {
-    displayYears()
+    domDefaltYears()
+    displayMsg()
+    removeErorrDisplayMaseg()
+    domDefaltYears()
+    persinNumber()
 }
 // submit form
+
 function submitForm(e) {
     e.preventDefault();
 
@@ -50,7 +55,7 @@ function submitForm(e) {
     }
 }
 
-const diffrence = function (year) {
+function diffrence(year) {
     // Convert to number
     // get max year
     const now = new Date().toLocaleDateString('fa-IR')
@@ -98,19 +103,19 @@ function calculatePrice(info) {
 
     // + get the level
     const level = info.level
-    price = calculateLevel(level , price)
+    price = calculateLevel(level, price)
 }
 
-function calculateLevel(level , price){
+function calculateLevel(level, price) {
     /*
         basic   =>  increase 30%
         complete=>  increase 50%
     */
 
-    if (level == 'basic'){
+    if (level == 'basic') {
         // price = price + (price * 0.30) (bara mehrdad)
         price = price * 1.3
-    }else{
+    } else {
         price = price * 1.5
     }
 
@@ -128,17 +133,18 @@ function displayMsg(msg) {
 
     // show message
     form.insertBefore(messageBox, document.querySelector('.form-group'))
+}
 
+// remove erorr maseg after 5s
+function removeErorrDisplayMaseg() {
     // remove message box
     setTimeout(() => {
         document.querySelector('.error').remove()
     }, 5000)
 }
 
-// Show Years 
-function displayYears() {
-
-
+// get 20 years old and transleat prisen
+function persinNumber() {
     // get now years
     let curentYear = new Date().toLocaleDateString('fa-IR')
 
@@ -151,25 +157,36 @@ function displayYears() {
     // get min year
     let minYear = maxYear - 20
 
+    // get 20 years olden
+    for (let i = maxYear; i >= minYear; i--) {
+        // create option tag
+        let optionTag = document.createElement('option')
+        optionTag.value = i;
+        optionTag.innerText = `سال ${i}`;
+
+        // append option to the selectYear
+
+        // access to the select tag
+        let selectYear = document.querySelector('#year')
+
+        // create first option tag for title
+        // create option tag
+        selectYear.appendChild(optionTag)
+    }
+}
+// Show Years 
+function domDefaltYears() {
     // access to the select tag
-    const selectYear = document.querySelector('#year')
+    let selectYear = document.querySelector('#year')
 
     // create first option tag for title
     // create option tag
-    const optionTag = document.createElement('option')
+    let optionTag = document.createElement('option')
     optionTag.innerText = `- انتخاب -`;
     // optionTag.value = ''
     // append option to the selectYear
     selectYear.appendChild(optionTag)
 
     // create for loop for making option tag
-    for (let i = maxYear; i >= minYear; i--) {
-        // create option tag
-        const optionTag = document.createElement('option')
-        optionTag.value = i;
-        optionTag.innerText = `سال ${i}`;
 
-        // append option to the selectYear
-        selectYear.appendChild(optionTag)
-    }
 }
